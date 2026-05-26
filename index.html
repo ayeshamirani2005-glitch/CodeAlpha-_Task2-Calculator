@@ -1,20 +1,32 @@
- <!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
+    <!-- Meta Settings -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page Title -->
     <title>Calculator</title>
+
+    <!-- External CSS -->
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
    
+    <!-- Calculator Container -->
     <div class="container">
       <div class="calculator">
+
+        <!-- Form Start -->
         <form name="calc">
+
+          <!-- Display Screen -->
           <div class="display">
             <input type="text" name="display" id="display" value="" readonly />
           </div>
 
+          <!-- Row 1 (Clear & Operators) -->
           <div>
             <button type="button" class="operator" onclick="display.value = ''">AC</button>
             <button type="button" class="operator" onclick="display.value = display.value.toString().slice(0,-1)">DE</button>
@@ -22,6 +34,7 @@
             <button type="button" class="operator" onclick="display.value += '/'">/</button>
           </div>
 
+          <!-- Row 2 -->
           <div>
             <button type="button" onclick="display.value += '7'">7</button>
             <button type="button" onclick="display.value += '8'">8</button>
@@ -29,6 +42,7 @@
             <button type="button" class="operator" onclick="display.value += '*'">*</button>
           </div>
 
+          <!-- Row 3 -->
           <div>
             <button type="button" onclick="display.value += '4'">4</button>
             <button type="button" onclick="display.value += '5'">5</button>
@@ -36,6 +50,7 @@
             <button type="button" class="operator" onclick="display.value += '-'">-</button>
           </div>
 
+          <!-- Row 4 -->
           <div>
             <button type="button" onclick="display.value += '1'">1</button>
             <button type="button" onclick="display.value += '2'">2</button>
@@ -43,59 +58,62 @@
             <button type="button" class="operator" onclick="display.value += '+'">+</button>
           </div>
 
+          <!-- Row 5 (Zero & Result) -->
           <div>
             <button type="button" onclick="display.value += '00'">00</button>
             <button type="button" onclick="display.value += '0'">0</button>
             <button type="button" class="equal operator" onclick="display.value = eval(display.value)">=</button>
           </div>
+
         </form>
+        <!-- Form End -->
+
       </div>
     </div>
+
+    <!-- JavaScript Start -->
     <script>
       
+      // Get display input
+      let display = document.getElementById("display");
 
-let display = document.getElementById("display");
+      // Keyboard input handler
+      document.addEventListener("keydown", function(event){
 
-document.addEventListener("keydown", function(event){
+          let key = event.key;
 
-    let key = event.key;
+          // Numbers & operators input
+          if(
+              (key >= 0 && key <= 9) ||
+              key == "+" ||
+              key == "-" ||
+              key == "*" ||
+              key == "/" ||
+              key == "."
+          ){
+              display.value += key;
+          }
 
-    // Numbers aur operators
-    if(
-        (key >= 0 && key <= 9) ||
-        key == "+" ||
-        key == "-" ||
-        key == "*" ||
-        key == "/" ||
-        key == "."
-    ){
+          // Enter or = for result
+          else if(key == "Enter" || key == "="){
+              display.value = eval(display.value);
+          }
 
-        display.value += key;
-    }
+          // Backspace delete last character
+          else if(key == "Backspace"){
+              display.value =
+              display.value.toString().slice(0,-1);
+          }
 
-    // Enter ya = press = answer
-    else if(key == "Enter" || key == "="){
+          // Escape clears display
+          else if(key == "Escape"){
+              display.value = "";
+          }
 
-        display.value = eval(display.value);
-    }
+      });
 
-    // Backspace = delete
-    else if(key == "Backspace"){
-
-        display.value =
-        display.value.toString().slice(0,-1);
-    }
-
-    // Escape = clear
-    else if(key == "Escape"){
-
-        display.value = "";
-    }
-
-});
-
-</script>
+    </script>
+    <!-- JavaScript End -->
     
   </body>
 </html>
-</body>
